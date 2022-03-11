@@ -16,5 +16,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AKSID }}
           aws-region: us-east-1
           mask-aws-account-id: true
-      - run aws s3 ls staging.schildwachter.net
+      - run: aws s3 ls staging.schildwachter.net
       - run: echo "🍏 This job's status is ${{ job.status }}."
