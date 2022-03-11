@@ -19,5 +19,6 @@ jobs:
           role-to-assume: arn:aws:iam::558693483502:role/ghdeployer-GithubDeployerRole-11T40378JDCR4
           role-session-name: test-session
           role-skip-session-tagging: true
+          role-duration-seconds: 180
       - run: aws s3 ls staging.schildwachter.net
       - run: echo "🍏 This job's status is ${{ job.status }}."
