@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
       - name: Config-AWS-Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,5 +22,5 @@ jobs:
           role-session-name: test-session
           role-skip-session-tagging: true
           role-duration-seconds: 900
-      - run: aws s3 ls staging.schildwachter.net
+      - run: aws s3 cp index.html staging.schildwachter.net/index.html
       - run: echo "🍏 This job's status is ${{ job.status }}."
