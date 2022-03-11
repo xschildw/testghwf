@@ -22,5 +22,5 @@ jobs:
           role-session-name: test-session
           role-skip-session-tagging: true
           role-duration-seconds: 900
-      - run: aws s3 cp index.html staging.schildwachter.net/index.html
+      - run: aws s3 cp index.html s3://staging.schildwachter.net/index.html
       - run: echo "🍏 This job's status is ${{ job.status }}."
