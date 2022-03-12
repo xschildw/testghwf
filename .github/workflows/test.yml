@@ -29,6 +29,7 @@ jobs:
           role-skip-session-tagging: true
           role-duration-seconds: 900
       - run: aws s3 cp index.html s3://$BUCKET_NAME/index.html
+      - run: aws s3 cp testprod.txt s3://$BUCKET_NAME/testprod.txt
   deploy-staging:
     name: deploy-staging
     # limit to this repo and main branch
@@ -54,3 +55,4 @@ jobs:
           role-skip-session-tagging: true
           role-duration-seconds: 900
       - run: aws s3 cp index.html s3://$BUCKET_NAME/index.html
+      - run: aws s3 cp teststaging.txt s3://$BUCKET_NAME/teststaging.txt
