@@ -34,4 +34,5 @@ jobs:
           role-skip-session-tagging: true
           role-duration-seconds: 900
       - name: deploy-build
+        if: $BUCKET_NAME != ""
         run: echo aws s3 cp index.html s3://$BUCKET_NAME/index.html     
