@@ -4,13 +4,19 @@ on:
     branches:
       - main
 jobs:
-  Explore-GitHub-Actions:
+  deploy-prod:
+    name: deploy-prod
+    # limit to this repo and main branch
+    if: github.repository == 'xschildw/testghwf' && github.ref == 'refs/heads/main'
     environment: staging
     runs-on: ubuntu-latest
+    env:
+      BUCKET_NAME: staging.schildwachter.net
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Checkout
         uses: actions/checkout@v3.0.0
+      - name: Build
+        run: echo Building...
       - name: Config-AWS-Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -22,5 +28,4 @@ jobs:
           role-session-name: test-session
           role-skip-session-tagging: true
           role-duration-seconds: 900
-      - run: aws s3 cp index.html s3://staging.schildwachter.net/index.html
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: aws s3 cp index.html s3://$BUCKET_NAME/index.html
