@@ -29,3 +29,28 @@ jobs:
           role-skip-session-tagging: true
           role-duration-seconds: 900
       - run: aws s3 cp index.html s3://$BUCKET_NAME/index.html
+  deploy-staging:
+    name: deploy-staging
+    # limit to this repo and main branch
+    if: github.repository == 'xschildw/testghwf' && github.ref == 'refs/heads/staging'
+    environment: staging
+    runs-on: ubuntu-latest
+    env:
+      BUCKET_NAME: staging.schildwachter.net
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+      - name: Build
+        run: echo Building...
+      - name: Config-AWS-Creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AKID }}
+          aws-secret-access-key: ${{ secrets.AKSID }}
+          aws-region: us-east-1
+          mask-aws-account-id: true
+          role-to-assume: arn:aws:iam::558693483502:role/ghdeployer-GithubDeployerRole-11T40378JDCR4
+          role-session-name: test-session
+          role-skip-session-tagging: true
+          role-duration-seconds: 900
+      - run: aws s3 cp index.html s3://$BUCKET_NAME/index.html
